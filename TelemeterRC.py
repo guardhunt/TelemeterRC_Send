@@ -1,4 +1,6 @@
 import socket
+import appcodec
+from time import sleep
 
 class TelemeterRcDaemon():
     """docstring for TelemeterRcDaemon"""
@@ -14,10 +16,15 @@ class TelemeterRcDaemon():
         assert(len(self.type) == 2)
         return self.socket.send(self.src + self.dst + self.type + payload)
 
+    def push(self):
+        while 1:
+            payload = appcodec.encode()
+            self.sendFrame(payload)
+            sleep(.01)
     def listen(self):
         while(1):
             frame = self.socket.recv(1500)
             self.decode(frame)
 
     def decode(self, frame):
-        
+        appcodec.decode(frame)
