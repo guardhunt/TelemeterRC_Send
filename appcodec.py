@@ -5,5 +5,5 @@ def decode(payload):
 def encode():
     """encode payload from sensors"""
 
-    payload == "blablablabalabala".encode("utf-8")
+    payload = "blablablabalabala".encode("utf-8")
     return payload
