@@ -5,8 +5,8 @@ from time import sleep
 class TelemeterRcDaemon():
     """docstring for TelemeterRcDaemon"""
     def __init__(self, src, dst):
-        self.src = bytearray.decode(src, "utf-8")
-        self.dst = bytearray.decode(dst, "utf-8")
+        self.src = bytearray.encode(src, "utf8")
+        self.dst = bytearray.encode(dst, "utf-8")
         self.type = "{:04X}".format(257)
         self.socket = socket.socket(socket.AF_PACKET, socket.SOCK_RAW)
         self.socket.bind(("eth0", 0))
