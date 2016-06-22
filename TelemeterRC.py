@@ -8,7 +8,7 @@ class TelemeterRcDaemon():
         self.src = src
         self.dst = dst
         self.type = "{:04X}".format(257)
-        self.socket = socket.socket(AF_PACKET, SOCK_RAW)
+        self.socket = socket.socket(socket.AF_PACKET, socket.SOCK_RAW)
         self.socket.bind((interface, 0))
 
     def sendFrame(self, payload):
