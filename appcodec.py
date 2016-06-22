@@ -1,6 +1,6 @@
 def decode(payload):
     """do stuff with frame, generate output"""
-    pass
+    print(payload)
 
 def encode():
     """encode payload from sensors"""
