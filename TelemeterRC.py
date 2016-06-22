@@ -9,7 +9,7 @@ class TelemeterRcDaemon():
         self.dst = dst
         self.type = "{:04X}".format(257)
         self.socket = socket.socket(socket.AF_PACKET, socket.SOCK_RAW)
-        self.socket.bind((interface, 0))
+        self.socket.bind(("eth0", 0))
 
     def sendFrame(self, payload):
         assert(len(self.src) == len(self.dst) == 6)
