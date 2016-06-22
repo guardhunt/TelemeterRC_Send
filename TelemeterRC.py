@@ -21,6 +21,7 @@ class TelemeterRcDaemon():
             payload = appcodec.encode()
             self.sendFrame(payload)
             sleep(.01)
+            print(payload + " sent")
 
     def listen(self):
         while(1):
