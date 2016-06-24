@@ -1,5 +1,6 @@
 from TelemeterRC import TelemeterRcDaemon
+import netifaces
 
 if __name__ == "__main__":
-    app = TelemeterRcDaemon("b827ebd50755", "00e060000060")
+    app = TelemeterRcDaemon("02560a817385", "02c309816887")
     app.push()
