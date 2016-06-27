@@ -9,12 +9,15 @@ class TelemeterRcDaemon():
     def __init__(self, src, dst):
         self.src = bytes(bytearray.fromhex(src))
         self.dst = bytes(bytearray.fromhex(dst))
+        self.type = bytes(bytearray.fromhex("0800"))
         self.socket = socket.socket(socket.AF_PACKET, socket.SOCK_RAW)
         self.socket.bind(("eth0", 2))
         print(self.socket)
 
     def sendFrame(self, payload):
-        self.type = (len(payload)).to_bytes(2, byteorder="big")
+        padding = bytes(64 - len(payload))
+        payload = padding + payload
+        #self.type = bytes((len(payload)).to_bytes(2, byteorder="big"))
         assert(len(self.src) == len(self.dst) == 6)
         assert(len(self.type) == 2)
         return self.socket.send(self.dst + self.src + self.type + payload)
