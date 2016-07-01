@@ -1,5 +1,4 @@
-i
-iport socket
+import socket
 import appcodec
 from time import sleep
 from struct import *
@@ -16,19 +15,22 @@ class TelemeterRcDaemon():
         print(self.socket)
 
     def sendFrame(self, payload):
-        padding = bytes(64 - len(payload))
-        payload = padding + payload
+        #padding = bytes(64 - len(payload))
+        #payload = padding + payload
         #self.type = bytes((len(payload)).to_bytes(2, byteorder="big"))
         assert(len(self.src) == len(self.dst) == 6)
         assert(len(self.type) == 2)
         return self.socket.send(self.dst + self.src + self.type + payload)
+        test = self.socket.send(self.dst + self.src + self.type + payload)
+        print (int.from_bytes(frame[0:5], byteorder='little'))
+        print('\n')
 
     def push(self):
-        while 1:
+        while (1):
             payload = appcodec.encode()
             self.sendFrame(payload)
-            sleep(1)
-            print(payload.decode("utf-8") + " sent")
+            print ("Payload Sent")
+            print ([payload])
 
     def listen(self):
         while(1):
