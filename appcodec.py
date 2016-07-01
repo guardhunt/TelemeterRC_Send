@@ -3,20 +3,24 @@ import fileinput
 import io
 import struct
 import time
-
+import evdev
+from evdev import InputDevice, categorize, ecodes
 def decode(payload):
     """do stuff with frame, generate output"""
     print(payload.decode('latin-1'))
 
-def encode():
+def encode(controller):
     """encode payload from sensors"""
 
-    stream = open('/dev/input/event2', buffering= -1, encoding= ('latin-1'))
+    for event in controller.read_loop():
+        if event.type == ecodes.EV_KEY or event.type == ecodes.EV_REL:
+            return (categorize(event))
+    #stream = open('/dev/input/event2', buffering= -1, encoding= ('latin-1'))
 
-    line = stream.readline(16)
+    #line = stream.readline(11)
 
-    line = line.encode('utf-8')
-    return line
+    #line = line.encode('utf-8')
+    #return line
 
     #infile_path = "/dev/input/event2"
 
