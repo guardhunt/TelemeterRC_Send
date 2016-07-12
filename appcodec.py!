@@ -2,7 +2,7 @@ import evdev
 import time
 import struct
 
-class appcodec():
+class packetState():
     def __init__(self):
         self.device = evdev.InputDevice("/dev/input/event2")
         self.capabilities = self.device.capabilities(verbose=True)
@@ -34,6 +34,7 @@ class appcodec():
 
         for code in self.capaRAW[3]:
             self.state[self.config[code]] = 0
+
 
         for event in self.device.read_loop():
             if event.type == evdev.ecodes.EV_KEY or event.type == evdev.ecodes.EV_ABS:
