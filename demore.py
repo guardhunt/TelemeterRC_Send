@@ -6,10 +6,8 @@ def recieve_frame(app, codec):
     while 1:
         packet = app.listen()
         if packet != None:
-            print(packet[14:28])
             packet = codec.decode(packet)
             print(packet)
-        time.sleep(0.01)
 
 def main():
     #app = TelemeterRcDaemon("02c309816887","02560a817385")

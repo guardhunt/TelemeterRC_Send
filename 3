@@ -57,23 +57,22 @@ class appcodec():
         return packet
 
     def decode(self, packet):
-        buttons = []
         state = packet[14:30]
         state = struct.unpack('6h2B2c', state)
+        buttons1 = int.from_bytes(state[8], byteorder="big")
+        buttons2 = int.from_bytes(state[9], byteorder="big")
 
-        buttons1 = state[8]
-        buttons2 = state[9]
+        buttons = []
+        for i in range(3):
+            button = 0
+            button =  button | buttons1 >> i
+            buttons.append(button)
 
-        holder1 = '{0:06b}'.format(int.from_bytes(buttons1, byteorder="big"))
-        holder2 = '{0:05b}'.format(int.from_bytes(buttons2, byteorder="big"))
+        for i in range(4):
+            button = 0
+            button = button | buttons2 >> i
+            buttons.append(button)
 
-
-        for i in  holder1:
-            buttons.append(int(i))
-
-        for i in holder2:
-            buttons.append(int(i))
-
-        state = list(state[ :7]) + buttons
-
+        print(buttons)
+        state = (state[ :7] + buttons)
         return state
